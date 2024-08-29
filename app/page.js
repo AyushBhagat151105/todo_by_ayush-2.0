@@ -14,17 +14,34 @@ const page = () => {
     setdesc("");
   };
 
+  const deletHandler = (i) => {
+    let copytask = [...mainTask];
+    copytask.splice(i, 1);
+    setmainTask(copytask);
+  };
+
   let randerTask = <h2>No task avalebl</h2>;
 
   if (mainTask.length > 0) {
     randerTask = mainTask.map((t, i) => {
       return (
-        <li key={i}>
-          <div className="flex justify-between mb-5 ">
-            <h5 className="text-xl font-semibold">{t.title}</h5>
-            <h6 className="text-xl font-semibold">{t.desc}</h6>
-          </div>
-        </li>
+        <>
+          <li key={i} className="flex items-center justify-between mb-5">
+            <div className=" mb-5 w-1/2">
+              <h5 className="text-2xl font-semibold">{t.title}</h5>
+              <p className="text-xl mt-2">{t.desc}</p>
+            </div>
+            <button
+              className="px-4 py-2 bg-red-600 rounded-md font-semibold text-white"
+              onClick={() => {
+                deletHandler(i);
+              }}
+            >
+              Delete
+            </button>
+          </li>
+          <hr />
+        </>
       );
     });
   }
@@ -61,7 +78,7 @@ const page = () => {
         </button>
       </form>
       <hr />
-      <div className="p-8 bg-slate-200 mx-3 rounded-md">
+      <div className="p-8 bg-slate-200 mx-3 rounded-md mt-4">
         <ul>{randerTask}</ul>
       </div>
     </>
